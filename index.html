@@ -151,7 +151,10 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Learning abstract state representations and knowledge is crucial for long-horizon robot planning. We present <b>InterPreT</b>, an LLM-powered framework for robots to learn symbolic predicates from language feedback of human non-experts during embodied interaction. The learned predicates provide relational abstractions of the environment state, facilitating the learning of symbolic operators that capture action preconditions and effects. By compiling the learned predicates and operators into a PDDL domain file on-the-fly, <b>InterPreT</b> allows effective planning toward arbitrary in-domain goals using a PDDL planner. In both simulated and real-world robot manipulation domains, we demonstrate that <b>InterPreT</b> reliably uncovers the key predicates and operators governing the environment dynamics. Although learned from simple training tasks, these predicates and operators exhibit strong generalization to novel tasks with significantly higher complexity. In the most challenging generalization setting, <b>InterPreT</b> attains success rates of 73% in simulation and 40% in the real world, substantially outperforming baseline methods.
+            Learning abstract state representations and knowledge is crucial for long-horizon robot planning. We present <b>InterPreT</b>, an LLM-powered framework for robots to learn symbolic predicates from language feedback of human non-experts during embodied interaction. The learned predicates provide relational abstractions of the environment state, facilitating the learning of symbolic operators that capture action preconditions and effects. By compiling the learned predicates and operators into a PDDL domain file on-the-fly, <b>InterPreT</b> allows effective planning toward arbitrary in-domain goals using a PDDL planner. 
+          </p>
+          <p>
+            In both simulated and real-world robot manipulation domains, we demonstrate that <b>InterPreT</b> reliably uncovers the key predicates and operators governing the environment dynamics. Although learned from simple training tasks, these predicates and operators exhibit strong generalization to novel tasks with significantly higher complexity. In the most challenging generalization setting, <b>InterPreT</b> attains success rates of 73% in simulation and 40% in the real world, substantially outperforming baseline methods.
           </p>
         </div>
       </div>
@@ -168,12 +171,12 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
+          <p>
+            <b>InterPreT</b> leverages <b>GPT-4</b> to generate and iteratively refine predicate functions (in Python) based on language feedback. Then a cluster-then-search algorithm learns symbolic operators from collected interaction data. At test time, we prompt GPT-4 to translate language goal specifications into symbolic goals for to PDDL planning with the learned PDDL domain.
+          </p>
           <figure class="image">
             <img src="static/images/architecture-v3.png" alt="System Architecture">
           </figure>
-          <p>
-            <b>InterPreT</b> leverages <b>GPT-4</b> to generate and iteratively refine predicate functions (in Python) based on human language feedback. Then a cluster-then-search algorithm learns symbolic operators from collected interaction data. At test time, we prompt GPT-4 to translate language goal specifications into symbolic goals to enable PDDL planning with the learned predicates and operators.
-          </p>
         </div>
       </div>
     </div>
@@ -188,21 +191,17 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Real-robot Results</h2>
         <div class="content has-text-justified">
-          <figure class="image">
+          <figure class="image" >
             <img src="static/images/real-result.png" alt="Real-robot results">
           </figure>
           <p>
-            Compared to LLM-based planners that plan with ungrounded world knowledge, <b>InterPreT</b> explicitly learns grounded predicates and opeators during embodied interation. The learned predicates and operators reliably capture regularities of the environment, allowing producing faithful plans for novel tasks that are more complex and require long-horizon planning.
+            <b>InterPreT</b> explicitly learns <b>grounded</b> predicates and opeators during embodied interation. The learned predicates and operators reliably capture regularities of the environment, allowing effective planning for novel tasks that are more complex than the training ones and require long-horizon planning.
+          </p>
+          <p>
+            On the contrary, LLM-based planners rely on <b>ungrounded</b> world knowledge for planning. Therefore, they fall short in generalizing to tasks more complex than those in the few-shot examples.
+          </p>
         </div>
         <h2 class="title is-4">Robot Demo: StoreObjects Domain</h2>
-        <div class="content has-text-justified">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
-            <source src="./static/videos/teaser.mp4"
-                    type="video/mp4">
-          </video>
-          </figure>
-        </div>
-
         <div class="columns">
           <div class="column">
             <video id="" autoplay muted loop playsinline height="100%">
@@ -236,6 +235,24 @@
             <h2 class="title is-5">Combined</h2>
           </div>
         </div>
+
+        <div class="columns">
+          <div class="column">
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_fail_1.mp4"
+                      type="video/mp4">
+            </video>
+            <h2 class="title is-5">Failure Case 1</h2>
+          </div>
+          <div class="column">
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_fail_2.mp4"
+                      type="video/mp4">
+            </video>
+            <h2 class="title is-5">Failure Case 2</h2>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
