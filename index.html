@@ -52,7 +52,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-2 publication-title">InterPreT: Interactive Predicate Learning from Language Feedback for Generalizable Task Planning</h1>
+            <h1 class="title is-3 publication-title">InterPreT: Interactive Predicate Learning from Language Feedback for Generalizable Task Planning</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
@@ -98,7 +98,7 @@
 
                   <!-- Github link -->
                   <span class="link-block">
-                    <a href="https://interpret.github.io/" target="_blank"
+                    <a href="https://github.com/hmz-15/interactive-predicate-learning" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -151,7 +151,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present <b>InterPreT</b>, an interactive framework that enables robots to learn symbolic predicates and operators for long-horizon task planning. Given language feedback of human nonexperts during robot interaction, <b>InterPreT</b> learns planning-oriented predicates as Python functions leveraging the capabilities of GPT-4. The learned predicates allow learning symbolic operators (i.e., action preconditions and effects) that can handle scenarios with varying number of objects. InterPreT compiles the learned predicates and operators into a PDDL domain file, which allows effective planning toward arbitrary in-domain goals with classical planners. In simulated and real-world robot manipulation domains, InterPreT learns from a series of simple training tasks guided by language feedback and is evaluated on a comprehensive test set featuring different levels of generalization requirements. We demonstrate that InterPreT reliably uncovers the key predicates and operators governing the environment dynamics. Notably, it achieves strong generalization performance on novel tasks significantly more complex than those in the training set. In the most challenging generalization setting, InterPreT attains success rates of 73% in simulation and 40% in the real world, substantially outperforming baseline methods.
+            Learning abstract state representations and knowledge is crucial for long-horizon robot planning. We present <b>InterPreT</b>, an LLM-powered framework for robots to learn symbolic predicates from language feedback of human non-experts during embodied interaction. The learned predicates provide relational abstractions of the environment state, facilitating the learning of symbolic operators that capture action preconditions and effects. By compiling the learned predicates and operators into a PDDL domain file on-the-fly, <b>InterPreT</b> allows effective planning toward arbitrary in-domain goals using a PDDL planner. In both simulated and real-world robot manipulation domains, we demonstrate that <b>InterPreT</b> reliably uncovers the key predicates and operators governing the environment dynamics. Although learned from simple training tasks, these predicates and operators exhibit strong generalization to novel tasks with significantly higher complexity. In the most challenging generalization setting, <b>InterPreT</b> attains success rates of 73% in simulation and 40% in the real world, substantially outperforming baseline methods.
           </p>
         </div>
       </div>
@@ -161,19 +161,19 @@
 <!-- End paper abstract -->
 
 
-<!-- System architecture -->
+<!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
-          <p>
-            InterPreT leverages the power of <b>GPT-4</b> to learn predicates by generating Python functions, which are then refined via iterative prompting. Then a cluster-then-search algorithm learns symbolic operators from collected interaction data. At test time, we utilize another GPT-4 to translate language goal specifications into symbolic goals to enable PDDL planning with the predicates and operators.
-          </p>
           <figure class="image">
             <img src="static/images/architecture-v3.png" alt="System Architecture">
           </figure>
+          <p>
+            <b>InterPreT</b> leverages <b>GPT-4</b> to generate and iteratively refine predicate functions (in Python) based on human language feedback. Then a cluster-then-search algorithm learns symbolic operators from collected interaction data. At test time, we prompt GPT-4 to translate language goal specifications into symbolic goals to enable PDDL planning with the learned predicates and operators.
+          </p>
         </div>
       </div>
     </div>
@@ -181,26 +181,59 @@
 
 
 
- <!-- Test on Real-robot Rollouts (two columns)-->
+ <!-- Real-robot Results-->
 </section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Real-Robot Results on Different Test Sets</h2>
+        <h2 class="title is-3">Real-robot Results</h2>
+        <div class="content has-text-justified">
+          <figure class="image">
+            <img src="static/images/real-result.png" alt="Real-robot results">
+          </figure>
+          <p>
+            Compared to LLM-based planners that plan with ungrounded world knowledge, <b>InterPreT</b> explicitly learns grounded predicates and opeators during embodied interation. The learned predicates and operators reliably capture regularities of the environment, allowing producing faithful plans for novel tasks that are more complex and require long-horizon planning.
+        </div>
+        <h2 class="title is-4">Robot Demo: StoreObjects Domain</h2>
+        <div class="content has-text-justified">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/teaser.mp4"
+                    type="video/mp4">
+          </video>
+          </figure>
+        </div>
+
         <div class="columns">
           <div class="column">
-            <video width="640" height="480" controls muted preload height="100%">
-              <source src="https://drive.google.com/uc?export=download&id=13X4P_d4KLUSf8uJtRxdBmCP6fYm58e9F"
-              type="video/mp4">
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_cano.mp4"
+                      type="video/mp4">
             </video>
-            <h2 class="title is-4">StoreObjects Domain</h2>
+            <h2 class="title is-5">Canonical</h2>
           </div>
           <div class="column">
-            <video pwidth="640" height="480" controls muted preload height="100%">
-              <source src="https://drive.google.com/uc?export=download&id=1TWqZ8xQ7ZnBRoDOVRaryo2WtDsVW5G5e"
-              type="video/mp4">
-              <h2 class="title is-4">SetTable Domain</h2>
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_novel.mp4"
+                      type="video/mp4">
             </video>
+            <h2 class="title is-5">Novel Goals</h2>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_more_obj.mp4"
+                      type="video/mp4">
+            </video>
+            <h2 class="title is-5">More Objects</h2>
+          </div>
+          <div class="column">
+            <video id="" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/store_objects_combined.mp4"
+                      type="video/mp4">
+            </video>
+            <h2 class="title is-5">Combined</h2>
           </div>
         </div>
       </div>
