@@ -97,6 +97,7 @@ body {
 
     overflow: hidden;
     border-radius: 10px !important;
+    margin: 0; /* Ensure no margin around the video container */
 }
 
 .publication-video iframe {
